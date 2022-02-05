@@ -1,21 +1,27 @@
 .title {
+  letter-spacing: 3px;
+  color: #d7dadc;
+  font-size: 40px;
+}
+
+.seperator {
   margin-bottom: 30px;
 }
 
 .square {
-  border: 1px solid #999;
+  border: 3px solid #3a3a3c;
   float: left;
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
-  height: 50px;
-  margin: 5px;
-  margin-bottom: 14px;
+  height: 60px;
+  width: 60px;
+  margin: 4px;
   padding: 0px;
   text-align: center;
-  width: 50px;
+  background-color: #121213;
+  color: white;
 }
 
-.square:focus {
-  outline: none;
-}
+/* .square:focus {
+} */
