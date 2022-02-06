@@ -25,14 +25,14 @@ class Board extends React.Component {
 
   getTargetWord() {
     let apiKey = `${process.env.REACT_APP_API_KEY}`;
-    let apiUrl = `https://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&minLength=5&maxLength=5&limit=1&api_key=${apiKey}`;
+    let apiUrl = `https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&minDictionaryCount=1&minLength=5&maxLength=5&api_key=${apiKey}`;
     fetch(apiUrl)
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result[0].word.toLowerCase());
+          console.log(result.word.toLowerCase());
           this.setState({
-            correctWord: result[0].word.toLowerCase(),
+            correctWord: result.word.toLowerCase(),
           });
         },
 
