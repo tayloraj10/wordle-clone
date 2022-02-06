@@ -87,6 +87,9 @@ class LetterRow extends React.Component {
               ? '3px solid #3a3a3c'
               : getBorderColor(this.props.colors[i]),
         }}
+        // onClick={(e) => {
+        //   this.props.onClickPass(e, { index: i, row: this.props.rowIndex });
+        // }}
       />
     );
   }
@@ -115,6 +118,8 @@ function getBorderColor(color) {
     return '3px solid green';
   } else if (color === 'yellow') {
     return '3px solid yellow';
+  } else if (color === 'red') {
+    return '3px solid red';
   } else {
     return '3px solid #3a3a3c';
   }

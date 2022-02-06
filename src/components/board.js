@@ -14,8 +14,35 @@ class Board extends React.Component {
       correctWord: 'hello',
       badLetters: [],
       statusMessage: '',
+      won: false,
     };
     this.myInputRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.getTargetWord();
+  }
+
+  getTargetWord() {
+    let apiKey = `${process.env.REACT_APP_API_KEY}`;
+    let apiUrl = `https://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&minLength=5&maxLength=5&limit=1&api_key=${apiKey}`;
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result[0].word.toLowerCase());
+          this.setState({
+            correctWord: result[0].word.toLowerCase(),
+          });
+        },
+
+        (error) => {
+          //   this.setState({
+          //     isLoaded: true,
+          //     error,
+          //   });
+        }
+      );
   }
 
   onChange(event) {
@@ -25,8 +52,6 @@ class Board extends React.Component {
       this.setState({
         currentIndex: newCurrentIndex,
       });
-    }
-    if (this.state.currentIndex === 4) {
     }
   }
 
@@ -63,6 +88,7 @@ class Board extends React.Component {
     if (word === this.state.correctWord) {
       this.setState({
         statusMessage: 'Congrats, you got the word!',
+        won: true,
       });
       return;
     }
@@ -89,6 +115,14 @@ class Board extends React.Component {
     });
   }
 
+  onClick = (event, data) => {
+    let newIndex = data.index;
+    console.log(newIndex);
+    this.setState({
+      currentIndex: newIndex,
+    });
+  };
+
   renderRow(i) {
     return (
       <LetterRow
@@ -100,6 +134,7 @@ class Board extends React.Component {
         refDown={this.state.currentRow === i ? this.myInputRef : null}
         wordChange={(word) => this.wordChange(word)}
         colors={this.state.colors[i] === undefined ? [] : this.state.colors[i]}
+        onClickPass={this.onClick}
       />
     );
   }
@@ -115,7 +150,9 @@ class Board extends React.Component {
         {this.renderRow(4)}
         {this.renderRow(5)}
         {this.state.currentIndex === 4 &&
-        this.state.words[this.state.currentRow].length === 5 ? (
+        this.state.words[this.state.currentRow] !== undefined &&
+        this.state.words[this.state.currentRow].length === 5 &&
+        !this.state.won ? (
           <Button
             variant='secondary'
             className='button'
