@@ -169,7 +169,7 @@ class Board extends React.Component {
         this.state.words[this.state.currentRow].length === 5 &&
         !this.props.won ? (
           <Button
-            variant='secondary'
+            variant='success'
             className='button'
             size='lg'
             onClick={() => this.onSubmit()}
