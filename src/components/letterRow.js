@@ -69,6 +69,12 @@ class LetterRow extends React.Component {
     }
   };
 
+  onFocus = (event) => {
+    if (event.target.autocomplete) {
+      event.target.autocomplete = 'whatever';
+    }
+  };
+
   renderSquare(i) {
     return (
       <input
@@ -78,6 +84,7 @@ class LetterRow extends React.Component {
         disabled={this.isSquareEnabled(i)}
         maxLength={1}
         autoComplete='off'
+        onFocus={this.onFocus}
         onChange={this.onChange}
         onKeyDown={this.onKeyDown}
         autoFocus={i === 0 && this.props.currentRow === this.props.rowIndex}
