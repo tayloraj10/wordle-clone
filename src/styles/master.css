@@ -2,10 +2,12 @@
   letter-spacing: 5px;
   color: #d7dadc;
   font-size: 40px;
+  margin-bottom: 0px;
 }
 
 .seperator {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  margin-top: 2px;
 }
 
 .square {
@@ -30,16 +32,25 @@
   margin-top: 14px;
 }
 
-ul {
-  list-style-type: none;
+.badLettersList {
+  text-align: center;
+  padding-left: 0px;
+  margin: 0px;
 }
 
 li {
+  font-size: 18px;
   display: inline;
 }
 
 .badLetters {
   margin-top: 8px;
+  margin-bottom: 0px;
+}
+
+.correctWord {
+  margin-top: 8px;
+  color: lightgreen;
 }
 
 .status {
@@ -55,4 +66,8 @@ li {
   50% {
     opacity: 0;
   }
+}
+
+.showButton {
+  margin-top: 40px;
 }

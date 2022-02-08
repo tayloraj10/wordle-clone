@@ -15,6 +15,7 @@ class Board extends React.Component {
       badLetters: [],
       statusMessage: '',
       won: false,
+      showWord: false,
     };
     this.myInputRef = React.createRef();
   }
@@ -25,7 +26,7 @@ class Board extends React.Component {
 
   getTargetWord() {
     let apiKey = `${process.env.REACT_APP_API_KEY}`;
-    let apiUrl = `https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&minDictionaryCount=1&minLength=5&maxLength=5&api_key=${apiKey}`;
+    let apiUrl = `https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&minDictionaryCount=3&minLength=5&maxLength=5&api_key=${apiKey}`;
     fetch(apiUrl)
       .then((res) => res.json())
       .then(
@@ -123,6 +124,12 @@ class Board extends React.Component {
     });
   };
 
+  showWord() {
+    this.setState({
+      showWord: !this.state.showWord,
+    });
+  }
+
   renderRow(i) {
     return (
       <LetterRow
@@ -162,12 +169,25 @@ class Board extends React.Component {
             Submit
           </Button>
         ) : null}
-        <h4 className='badLetters'>Letters not in word</h4>
-        <ul>
+        {this.state.badLetters.length > 0 ? (
+          <h4 className='badLetters'>Letters not in word</h4>
+        ) : null}
+        <ul className='badLettersList'>
           {this.state.badLetters.map((letter) => {
             return <li key={letter}>{letter + ', '}</li>;
           })}
         </ul>
+        <Button
+          variant='danger'
+          className='button showButton'
+          size='lg'
+          onClick={() => this.showWord()}
+        >
+          {this.state.showWord ? 'Hide Word' : 'Show Word'}
+        </Button>
+        {this.state.showWord ? (
+          <h4 className='correctWord'>{this.state.correctWord}</h4>
+        ) : null}
       </div>
     );
   }
