@@ -70,6 +70,13 @@ class Board extends React.Component {
     let newBadLetters = this.state.badLetters;
     let word = this.state.words[this.state.currentRow];
 
+    if (this.state.currentRow === 5) {
+      this.setState({
+        statusMessage: 'Sorry, you lost!',
+      });
+      return;
+    }
+
     for (let i = 0; i < word.length; i++) {
       if (this.state.correctWord[i] === word[i]) {
         colors.push('green');
