@@ -77,7 +77,7 @@ class LetterRow extends React.Component {
         className='square'
         disabled={this.isSquareEnabled(i)}
         maxLength={1}
-        autoComplete='new-password'
+        autoComplete='off'
         onChange={this.onChange}
         onKeyDown={this.onKeyDown}
         autoFocus={i === 0 && this.props.currentRow === this.props.rowIndex}
