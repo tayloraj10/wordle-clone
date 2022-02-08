@@ -2,6 +2,8 @@ import React from 'react';
 import LetterRow from './letterRow';
 import '../styles/master.css';
 import Button from 'react-bootstrap/Button';
+import { connect } from 'react-redux';
+import { winGame, loseGame } from '../redux/Board/board.actions';
 
 class Board extends React.Component {
   constructor(props) {
@@ -14,7 +16,6 @@ class Board extends React.Component {
       correctWord: 'hello',
       badLetters: [],
       statusMessage: '',
-      won: false,
       showWord: false,
     };
     this.myInputRef = React.createRef();
@@ -96,7 +97,7 @@ class Board extends React.Component {
     if (word === this.state.correctWord) {
       this.setState({
         statusMessage: 'Congrats, you got the word!',
-        won: true,
+        won: this.props.win(),
       });
       return;
     }
@@ -166,7 +167,7 @@ class Board extends React.Component {
         {this.state.currentIndex === 4 &&
         this.state.words[this.state.currentRow] !== undefined &&
         this.state.words[this.state.currentRow].length === 5 &&
-        !this.state.won ? (
+        !this.props.won ? (
           <Button
             variant='secondary'
             className='button'
@@ -200,4 +201,17 @@ class Board extends React.Component {
   }
 }
 
-export default Board;
+const mapStateToProps = (state) => {
+  return {
+    won: state.board.won,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    win: () => dispatch(winGame()),
+    lose: () => dispatch(loseGame()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
